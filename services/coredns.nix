@@ -5,6 +5,8 @@
       . {
         health 0.0.0.0:5353
 
+        cache
+
         template IN A 0x4b5354.dev {
           match ^(.+[.])?(?P<a>[0-9]{1,3})[.](?P<b>[0-9]{1,3})[.](?P<c>[0-9]{1,3})[.](?P<d>[0-9]{1,3})[.]0x4b5354[.]dev[.]$
           answer "{{ .Name }} 60 IN A {{ .Group.a }}.{{ .Group.b }}.{{ .Group.c }}.{{ .Group.d }}"
