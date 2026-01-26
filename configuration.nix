@@ -12,6 +12,7 @@
 
     # Long running services
     ./services/ssh.nix
+    ./services/coredns.nix
   ];
 
   # Set time zone.
