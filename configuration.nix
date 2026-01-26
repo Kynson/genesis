@@ -8,8 +8,9 @@
     ./modules/users.nix
     ./modules/nix-package-manager.nix
     ./modules/networking.nix
+    ./modules/secrets
 
-    # Services
+    # Long running services
     ./services/ssh.nix
   ];
 

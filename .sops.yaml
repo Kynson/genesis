@@ -1,0 +1,9 @@
+keys:
+  - &kynsonszetau age14kj3zdjeu9ty9dz9g4qgxvuv2lhwvxl7qxsuukwmw3spl6dwduesz0mk3x
+  - &genesis age14ath9g6j6fwswjk4409v8uqk9hmc3eq55wv49ka3m6jszml5f4uqdupxw7
+creation_rules:
+  - path_regex: modules/secrets/secrets.json
+    key_groups:
+      - age:
+          - *kynsonszetau
+          - *genesis

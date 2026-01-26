@@ -8,9 +8,12 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixos-raspberrypi, disko, ... }@inputs: 
+  outputs = { nixos-raspberrypi, disko, sops-nix, ... }@inputs: 
     let 
       system = "aarch64-linux";
       hostName = "genesis";
@@ -21,6 +24,8 @@
         specialArgs = inputs // { inherit hostName; };
         modules = [
           ./configuration.nix
+
+          sops-nix.nixosModules.sops
 
           disko.nixosModules.disko
           ./disk-configuration.nix
