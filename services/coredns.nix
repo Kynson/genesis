@@ -1,5 +1,5 @@
 {
-  service.coredns = {
+  services.coredns = {
     enable = true;
     config = ''
       template IN A .local {
