@@ -10,7 +10,7 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
   };
 
-  outputs = { nixos-raspberrypi, disko }@inputs: 
+  outputs = { nixos-raspberrypi, disko, ... }@inputs: 
     let 
       system = "aarch64-linux";
       hostName = "genesis";
@@ -18,10 +18,7 @@
       nixosConfigurations.${hostName} = nixos-raspberrypi.lib.nixosSystem {
         inherit system;
         # Pass all inputs to the modules below for easy access.
-        specialArgs = { 
-          inherit inputs;
-          inherit hostName;
-        };
+        specialArgs = inputs // { inherit hostName; };
         modules = [
           ./configuration.nix
 
