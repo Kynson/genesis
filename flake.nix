@@ -13,15 +13,21 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixos-raspberrypi, disko, sops-nix, ... }@inputs: 
+  outputs = { nixos-raspberrypi, disko, sops-nix, nixpkgs, ... }@inputs: 
     let 
       system = "aarch64-linux";
+      devSystem = "aarch64-darwin";
       hostName = "genesis";
+      adminUserName = "kynsonszetau";
+
+      devPkgs = import nixpkgs {
+        system = devSystem;
+      };
     in {
       nixosConfigurations.${hostName} = nixos-raspberrypi.lib.nixosSystem {
         inherit system;
         # Pass all inputs to the modules below for easy access.
-        specialArgs = inputs // { inherit hostName; };
+        specialArgs = inputs // { inherit hostName adminUserName; };
         modules = [
           ./configuration.nix
 
@@ -30,6 +36,16 @@
           disko.nixosModules.disko
           ./disk-configuration.nix
         ];
+      };
+
+      devShells.${devSystem}.default = devPkgs.mkShell {
+        packages = with devPkgs; [
+          sops
+        ];
+
+        shellHook = ''
+          export SOPS_AGE_KEY_FILE=./sops-keys.txt
+        '';
       };
     };
 }
