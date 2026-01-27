@@ -9,7 +9,7 @@ in
   };
 
   services.openssh.settings = {
-    PermitRootLogin = false;
+    PermitRootLogin = "no";
     PasswordAuthentication = false;
     AllowUsers = [ adminUserName ];
   };
