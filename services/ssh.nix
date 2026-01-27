@@ -1,10 +1,17 @@
 let 
   #allowedManagementIPs = [ "192.168.1.185" ];
-in {
+in 
+{ adminUserName, ... }: {
   services.openssh = {
     enable = true;
     # We have custom rules below
     #openFirewall = false;
+  };
+
+  services.openssh.settings = {
+    PermitRootLogin = false;
+    PasswordAuthentication = false;
+    AllowUsers = [ adminUserName ];
   };
 
   #networking.firewall.extraInputRules = ''
