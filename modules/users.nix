@@ -1,6 +1,6 @@
 # User configurations
 
-{ config, adminUserName, ... }: {
+{ config, adminUserName, workerUserName, ... }: {
   # Admin user
   users.users.${adminUserName} = {
     description = "Kynson Szetau";
@@ -15,7 +15,7 @@
   };
 
   # Worker user
-  users.users.genesis = {
+  users.users.${workerUserName} = {
     description = "Genesis Containers Worker";
     isNormalUser = true;
     uid = 1001;

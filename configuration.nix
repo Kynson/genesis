@@ -9,6 +9,7 @@
     ./modules/nix-package-manager.nix
     ./modules/networking.nix
     ./modules/secrets
+    ./modules/home-manager.nix
 
     # Long running services
     ./services/ssh.nix

@@ -11,14 +11,18 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixos-raspberrypi, disko, sops-nix, nixpkgs, ... }@inputs: 
+  outputs = { nixos-raspberrypi, disko, sops-nix, nixpkgs, home-manager, ... }@inputs: 
     let 
       system = "aarch64-linux";
       devSystem = "aarch64-darwin";
       hostName = "genesis";
       adminUserName = "kynsonszetau";
+      workerUserName = "genesis";
 
       devPkgs = import nixpkgs {
         system = devSystem;
@@ -27,11 +31,13 @@
       nixosConfigurations.${hostName} = nixos-raspberrypi.lib.nixosSystem {
         inherit system;
         # Pass all inputs to the modules below for easy access.
-        specialArgs = inputs // { inherit hostName adminUserName; };
+        specialArgs = inputs // { inherit hostName adminUserName workerUserName; };
         modules = [
           ./configuration.nix
 
           sops-nix.nixosModules.sops
+
+          home-manager.nixosModules.home-manager
 
           disko.nixosModules.disko
           ./disk-configuration.nix
