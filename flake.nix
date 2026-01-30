@@ -22,7 +22,10 @@
       devSystem = "aarch64-darwin";
       hostName = "genesis";
       adminUserName = "kynsonszetau";
+
       workerUserName = "genesis";
+      workerUid = 900;
+      workerHomeDirectory = "/var/lib/${workerUserName}";
 
       devPkgs = import nixpkgs {
         system = devSystem;
@@ -31,7 +34,9 @@
       nixosConfigurations.${hostName} = nixos-raspberrypi.lib.nixosSystem {
         inherit system;
         # Pass all inputs to the modules below for easy access.
-        specialArgs = inputs // { inherit hostName adminUserName workerUserName; };
+        specialArgs = inputs // { 
+          inherit hostName adminUserName workerUserName workerUid workerHomeDirectory;
+        };
         modules = [
           ./configuration.nix
 

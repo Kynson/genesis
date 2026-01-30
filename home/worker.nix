@@ -1,6 +1,6 @@
-{ workerUserName, ... }: {
+{ workerUserName, workerHomeDirectory, ... }: {
   imports = [ ./base.nix ];
 
   home.username = workerUserName;
-  home.homeDirectory = "/home/${workerUserName}";
+  home.homeDirectory = workerHomeDirectory;
 }

@@ -19,6 +19,9 @@ in
   # Warning: This override other PAM settings for sshd, for example security.pam.loginLimits
   # Handle this with care! Misconfiguration may lock access to the system or allow unauthenticated access.
   # The below is generated a NixOS system with google authenticator disabled
+
+  # Reference: https://github.com/NixOS/nixpkgs/issues/115044
+  # Use security.pam.services.sshd.googleAuthenticator (or new option, if direct SSH option is added) if the above is fixed
   security.pam.services.sshd.text = ''
     # Account management.
     account required ${pkgs.linux-pam}/lib/security/pam_unix.so # unix (order 10900)

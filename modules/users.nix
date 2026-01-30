@@ -1,6 +1,6 @@
 # User configurations
 
-{ config, adminUserName, workerUserName, ... }: {
+{ config, adminUserName, workerUserName, workerUid, workerHomeDirectory, ... }: {
   # Admin user
   users.users.${adminUserName} = {
     description = "Kynson Szetau";
@@ -17,9 +17,15 @@
   # Worker user
   users.users.${workerUserName} = {
     description = "Genesis Containers Worker";
-    isNormalUser = true;
-    uid = 1001;
+    isSystemUser = true;
+    uid = workerUid;
+    createHome = true;
+    home = workerHomeDirectory;
+    autoSubUidGidRange = true;
     # Enable lingering to allow user units to be started at boot
     linger = true;
+    group = workerUserName;
   };
+
+  users.groups.${workerUserName}.gid = workerUid;
 }
