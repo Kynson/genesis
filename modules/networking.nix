@@ -24,7 +24,7 @@ let
   # The forwarded packets will further be processed by `nixos-fw` table (networking.firewall), so we need to allow them there as well
   # The mark ensure only packets forwarded by rules in `port_forward` table are accepted
   portForwardAllowRules = lib.map
-  ({ protocol, target }:
+  ({ protocol, target, ...}:
     "${protocol} dport ${target} meta mark 1 accept comment \"Allow forwarded packet to port ${target}\""
   )
   portForwardConfigurations;
