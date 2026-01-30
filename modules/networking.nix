@@ -37,15 +37,17 @@ in
     nftables.enable = true;
 
     # Enable forwarding for containers (can't be done inside home manager configuration)
-    nftables.tables.${portForwardTableName}.family = "inet";
-    nftables.tables.${portForwardTableName}.content = ''
-      chain prerouting {
-        type nat hook prerouting priority dstnat;
-        policy accept;
+    nftables.tables.${portForwardTableName} = {
+      family = "inet";
+      content = ''
+        chain prerouting {
+          type nat hook prerouting priority dstnat;
+          policy accept;
 
-        ${lib.concatStringsSep "\n" portForwardRules}
-      }
-    '';
+          ${lib.concatStringsSep "\n" portForwardRules}
+        }
+      '';
+    };
 
     firewall.extraInputRules = lib.concatStringsSep "\n" portForwardAllowRules;
   };
