@@ -13,6 +13,8 @@
 
     # Long running services
     ./services/ssh.nix
+    # CoreDNS is put here instead of containerized services is to ensure better performance for local resolution
+    # Also it requires binding to low numbered port (53) which requires extra nftables rules to forward it
     ./services/coredns.nix
   ];
 
