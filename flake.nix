@@ -55,7 +55,7 @@
         ];
 
         shellHook = ''
-          export SOPS_AGE_KEY_FILE=./sops-keys.txt
+          export SOPS_AGE_KEY_FILE=~/Credential/Genesis/sops-keys.txt
         '';
       };
     };
