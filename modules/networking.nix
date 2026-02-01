@@ -55,4 +55,6 @@ in
 
     firewall.extraInputRules = lib.concatStringsSep "\n" portForwardAllowRules;
   };
+
+  systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
 }
