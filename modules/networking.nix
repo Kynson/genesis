@@ -55,7 +55,4 @@ in
 
     firewall.extraInputRules = lib.concatStringsSep "\n" portForwardAllowRules;
   };
-
-  # Increase NetworkManager wait-online timeout to 120 seconds, the raspberry pi is slow somehow
-  systemd.services.NetworkManager-wait-online.environment.NM_ONLINE_TIMEOUT = "120";
 }
