@@ -28,7 +28,7 @@ in
   };
 
   services.podman.networks.traefik = {
-    description = "Shared network for local services traefik reverse proxy";
+    description = "Shared network for local services and traefik reverse proxy";
     driver = "bridge";
   };
 }

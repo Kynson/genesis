@@ -34,6 +34,10 @@ in
     inherit hostName;
     networkmanager.enable = true;
 
+    # Ignore wlan0 as this server is connected via ethernet
+    # Re-enable this if WiFi is needed
+    networking.networkmanager.unmanaged = [ "wlan0" ];
+
     nftables.enable = true;
 
     # Enable forwarding for containers (can't be done inside home manager configuration)
